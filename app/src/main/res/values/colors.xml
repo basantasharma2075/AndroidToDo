@@ -7,6 +7,11 @@
     <color name="colorAccent">#303F9F</color>
 
     <!-- colors taskEntrytask priority selection -->
+    <color name="mp">#ef2ca4</color>
+    <color name="mk">#f78ffc</color>
+    <color name="mj">#9e5492</color>
+
+
     <color name="materialRed">#E74C3C</color>
     <color name="materialOrange">#E67E22</color>
     <color name="materialYellow">#F1C40F</color>

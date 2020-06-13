@@ -1,5 +1,6 @@
 package com.example.todomvvm.tasks;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -10,7 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.todomvvm.addedittask.AddEditTaskActivity;
 import com.example.todomvvm.R;
@@ -106,5 +111,26 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
         Intent intent = new Intent(MainActivity.this, AddEditTaskActivity.class);
         intent.putExtra(AddEditTaskActivity.EXTRA_TASK_ID, itemId);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate( R.menu.main_menu, menu );
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.delete_all_notes:
+                viewModel.deleteAllNotes();
+                Toast.makeText(this, "Deleted all Notes", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 }

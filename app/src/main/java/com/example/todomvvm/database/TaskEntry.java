@@ -13,20 +13,23 @@ public class TaskEntry {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String description;
+    private String title;
     private int priority;
     @ColumnInfo(name="updated_at")
     private Date updatedAt;
 
     @Ignore
-    public TaskEntry(String description, int priority, Date updatedAt) {
+    public TaskEntry(String description, String title, int priority, Date updatedAt) {
         this.description = description;
+        this.title = title;
         this.priority = priority;
         this.updatedAt = updatedAt;
     }
 
-    public TaskEntry(int id, String description, int priority, Date updatedAt) {
+    public TaskEntry(int id, String description, String title, int priority, Date updatedAt) {
         this.id = id;
         this.description = description;
+        this.title = title;
         this.priority = priority;
         this.updatedAt = updatedAt;
     }
@@ -45,6 +48,14 @@ public class TaskEntry {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public int getPriority() {

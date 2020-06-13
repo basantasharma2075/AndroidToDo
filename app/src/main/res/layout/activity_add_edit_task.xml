@@ -21,7 +21,7 @@
     <LinearLayout
         android:id="@+id/above"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:background="@drawable/layoutg"
         android:orientation="vertical">
@@ -53,18 +53,39 @@
             android:layout_gravity="start"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:text="Enter a Note to Save"
-            android:textSize="30dp"
+            android:text="Enter a Note Title"
+            android:textSize="20dp"
             android:textStyle="italic"
             android:textColor="@android:color/primary_text_light" />
 
     <EditText
-        android:id="@+id/editTextTaskDescription"
+        android:id="@+id/editTextTaskTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start"
         android:background="@drawable/gr"
         android:paddingBottom="@dimen/activity_horizontal_margin" />
+
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Enter a Note Description"
+            android:textSize="20dp"
+            android:textStyle="italic"
+            android:textColor="@android:color/primary_text_light" />
+
+        <EditText
+            android:id="@+id/editTextTaskDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:background="@drawable/gr"
+            android:paddingBottom="@dimen/activity_horizontal_margin" />
 
     <!-- TextView and FrameLayout (which contains buttons) for Priority Selection -->
     <TextView
@@ -75,7 +96,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/priority_string"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:textStyle="italic"
         android:textColor="@android:color/primary_text_light" />
 
@@ -94,7 +115,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/materialRed"
+            android:background="@color/mp"
             android:checked="true"
             android:text="@string/high_priority"
             android:theme="@style/WhiteRadioButton" />
@@ -104,7 +125,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/materialOrange"
+            android:background="@color/mk"
             android:text="@string/med_priority"
             android:theme="@style/WhiteRadioButton" />
 
@@ -113,7 +134,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/materialYellow"
+            android:background="@color/mj"
             android:text="@string/low_priority"
             android:theme="@style/WhiteRadioButton" />
 

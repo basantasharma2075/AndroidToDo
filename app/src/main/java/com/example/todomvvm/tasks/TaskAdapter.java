@@ -3,10 +3,13 @@ package com.example.todomvvm.tasks;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -70,11 +73,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         // Determine the values of the wanted data
         TaskEntry taskEntry = mTaskEntries.get(position);
         String description = taskEntry.getDescription();
+        String title = taskEntry.getTitle();
         int priority = taskEntry.getPriority();
         String updatedAt = dateFormat.format(taskEntry.getUpdatedAt());
 
         //Set values
         holder.taskDescriptionView.setText(description);
+        holder.taskTitleView.setText(title);
         holder.updatedAtView.setText(updatedAt);
 
         // Programmatically set the text and color for the priority TextView
@@ -96,13 +101,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
         switch (priority) {
             case 1:
-                priorityColor = ContextCompat.getColor(mContext, R.color.materialRed);
+                priorityColor = ContextCompat.getColor(mContext, R.color.mp);
                 break;
             case 2:
-                priorityColor = ContextCompat.getColor(mContext, R.color.materialOrange);
+                priorityColor = ContextCompat.getColor(mContext, R.color.mk);
                 break;
             case 3:
-                priorityColor = ContextCompat.getColor(mContext, R.color.materialYellow);
+                priorityColor = ContextCompat.getColor(mContext, R.color.mj);
                 break;
             default:
                 break;
@@ -142,6 +147,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         // Class variables for the task description and priority TextViews
+        TextView taskTitleView;
         TextView taskDescriptionView;
         TextView updatedAtView;
         TextView priorityView;
@@ -154,6 +160,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         public TaskViewHolder(View itemView) {
             super(itemView);
 
+            taskTitleView = itemView.findViewById(R.id.taskTitle);
             taskDescriptionView = itemView.findViewById(R.id.taskDescription);
             updatedAtView = itemView.findViewById(R.id.taskUpdatedAt);
             priorityView = itemView.findViewById(R.id.priorityTextView);
@@ -166,4 +173,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             mItemClickListener.onItemClickListener(elementId);
         }
     }
+
+
 }
