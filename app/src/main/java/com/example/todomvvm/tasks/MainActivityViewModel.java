@@ -40,4 +40,5 @@ public class MainActivityViewModel extends AndroidViewModel {
         repository.deleteAllNotes();
     }
 
+
 }

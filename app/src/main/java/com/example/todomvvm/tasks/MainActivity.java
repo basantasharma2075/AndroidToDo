@@ -1,5 +1,14 @@
 package com.example.todomvvm.tasks;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.SearchView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -9,18 +18,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
-
-import com.example.todomvvm.addedittask.AddEditTaskActivity;
 import com.example.todomvvm.R;
-import com.example.todomvvm.database.AppDatabase;
-import com.example.todomvvm.database.Repository;
+import com.example.todomvvm.addedittask.AddEditTaskActivity;
 import com.example.todomvvm.database.TaskEntry;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -113,10 +112,54 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
         startActivity(intent);
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate( R.menu.main_menu, menu );
+
+    //inflater.inflate( R.menu.searchmenu,menu );
+
+        inflater.inflate( R.menu.searchmenu, menu );
+
+        MenuItem searchItem = menu.findItem( R.id.action_search );
+
+       // MenuItem searchItem = menu.findItem( R.id.action_search );
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+//        SearchView searchView = (SearchView) searchItem.getActionView();
+
+
+        searchView.setOnQueryTextListener( new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mAdapter.getFilter().filter( newText );
+                return true;
+            }
+        } );
+/*
+
+        searchView.setOnQueryTextListener( new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+             Log.i(TAG, newText);
+       //         mAdapter.getFilter().filter( newText );
+                return false;
+            }
+        } );
+*/
+
 
         return true;
     }
@@ -128,6 +171,8 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
                 viewModel.deleteAllNotes();
                 Toast.makeText(this, "Deleted all Notes", Toast.LENGTH_SHORT).show();
                 return true;
+
+
             default:
                 return super.onOptionsItemSelected(item);
         }

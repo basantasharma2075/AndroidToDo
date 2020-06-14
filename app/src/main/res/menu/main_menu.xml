@@ -4,19 +4,10 @@
 
 
 
+
     <item
         android:id="@+id/delete_all_notes"
         android:title="Delete All Notes"
-        app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/ascending"
-        android:title="Ascending"
-        app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/descending"
-        android:title="Descending"
         app:showAsAction="never"/>
 
 
