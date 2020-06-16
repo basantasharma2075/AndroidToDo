@@ -1,22 +1,26 @@
 package com.example.todomvvm.addedittask;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioGroup;
-
 import com.example.todomvvm.R;
-import com.example.todomvvm.database.AppDatabase;
-import com.example.todomvvm.database.Repository;
 import com.example.todomvvm.database.TaskEntry;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class AddEditTaskActivity extends AppCompatActivity {
 
@@ -37,6 +41,8 @@ public class AddEditTaskActivity extends AppCompatActivity {
 
     private EditText editTextTaskTitle;
     private EditText editTextTaskDescription;
+    private final int REQ_CODE = 100;
+    private final int REQ_CODE1 = 200;
 
 
     RadioGroup mRadioGroup;
@@ -84,6 +90,52 @@ public class AddEditTaskActivity extends AppCompatActivity {
             AddEditTaskViewModelFactory factory = new AddEditTaskViewModelFactory(getApplication(), mTaskId);
             viewModel = ViewModelProviders.of(this, factory).get(AddEditTaskViewModel.class);
         }
+
+        editTextTaskTitle = findViewById( R.id.editTextTaskTitle );
+        ImageView speak = findViewById( R.id.speak );
+
+        editTextTaskDescription = findViewById( R.id.editTextTaskDescription );
+        ImageView speak_des = findViewById( R.id.speakdesc );
+
+        speak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                        RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+                        "Need to speak");
+                try {
+                    startActivityForResult(intent, REQ_CODE);
+                } catch (ActivityNotFoundException a) {
+                    Toast.makeText(getApplicationContext(),
+                            "Sorry your device not supported",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        speak_des.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                        RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+                        "Need to speak");
+                try {
+                    startActivityForResult(intent, REQ_CODE1);
+                } catch (ActivityNotFoundException a) {
+                    Toast.makeText(getApplicationContext(),
+                            "Sorry your device not supported",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
     }
 
     @Override
@@ -180,6 +232,33 @@ public class AddEditTaskActivity extends AppCompatActivity {
                 break;
             case PRIORITY_LOW:
                 ((RadioGroup) findViewById(R.id.radioGroup)).check(R.id.radButton3);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case REQ_CODE: {
+                if (resultCode == RESULT_OK && null != data) {
+
+                    ArrayList<String> result = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    editTextTaskTitle.setText(result.get(0));
+                }
+                break;
+            }
+
+            case REQ_CODE1: {
+                if (resultCode == RESULT_OK && null != data) {
+
+                    ArrayList<String> result = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    editTextTaskDescription.setText(result.get(0));
+                }
+                break;
+            }
         }
     }
 }
