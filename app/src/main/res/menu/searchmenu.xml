@@ -6,8 +6,9 @@
         android:id="@+id/action_search"
         android:title="Search"
         android:icon="@drawable/searchb"
-        app:showAsAction="always|collapseActionView"
+        app:showAsAction="always"
         app:actionViewClass="android.widget.SearchView" />
+
 
 
 </menu>
