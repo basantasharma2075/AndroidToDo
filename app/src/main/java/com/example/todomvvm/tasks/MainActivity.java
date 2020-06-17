@@ -146,6 +146,15 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
                 Toast.makeText(this, "Deleted all Notes", Toast.LENGTH_SHORT).show();
                 return true;
 
+            //Intent intent = new Intent(this, ActivityForItemOne.class);
+            //this.startActivity(intent);
+
+            case R.id.logout:
+                Intent intent = new Intent( this, UserActivity.class );
+                this.startActivity( intent );
+                Toast.makeText(this, "Sucessfully logout", Toast.LENGTH_SHORT).show();
+                return true;
+
 
             default:
                 return super.onOptionsItemSelected(item);

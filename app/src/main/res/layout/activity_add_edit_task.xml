@@ -202,15 +202,6 @@
     </RadioGroup>
 
 
-        <ImageView
-            android:id = "@+id/btnNotify"
-            android:layout_width = "100dp"
-            android:layout_height = "70dp"
-            android:layout_gravity="center"
-            android:background = "?selectableItemBackground"
-            android:src = "@drawable/date_taker"
-            />
-
 
 
     <!-- Add button -->
