@@ -118,19 +118,10 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate( R.menu.main_menu, menu );
-
-    //inflater.inflate( R.menu.searchmenu,menu );
-
-        inflater.inflate( R.menu.searchmenu, menu );
+       inflater.inflate( R.menu.searchmenu, menu );
 
         MenuItem searchItem = menu.findItem( R.id.action_search );
-
-       // MenuItem searchItem = menu.findItem( R.id.action_search );
         SearchView searchView = (SearchView) searchItem.getActionView();
-
-//        SearchView searchView = (SearchView) searchItem.getActionView();
-
-
         searchView.setOnQueryTextListener( new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -143,23 +134,6 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
                 return true;
             }
         } );
-/*
-
-        searchView.setOnQueryTextListener( new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-             Log.i(TAG, newText);
-       //         mAdapter.getFilter().filter( newText );
-                return false;
-            }
-        } );
-*/
-
 
         return true;
     }
