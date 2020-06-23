@@ -11,10 +11,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import com.example.todomvvm.R;
 import com.example.todomvvm.database.AppDatabase;
+import com.example.todomvvm.database.RepositoryUser;
 import com.example.todomvvm.database.TaskDao;
 import com.example.todomvvm.database.User;
 
@@ -27,8 +27,10 @@ public class SignupActivity extends AppCompatActivity {
 
     private Button registerButton;
  //   private Button cancelButton;
+    private AppDatabase appDatabase;
 
     private TaskDao taskDaoO;
+    private RepositoryUser repositoryUser;
     private ProgressDialog progressDialog;
 
 
@@ -43,17 +45,21 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setProgress(0);
 
+
+
         name = findViewById(R.id.register_name);
+
+        appDatabase=AppDatabase.getInstance( this );
+        repositoryUser=new RepositoryUser( appDatabase );
+
         lastName = findViewById(R.id.register_lastName);
         email = findViewById(R.id.register_email);
         password = findViewById(R.id.register_password);
         registerButton = findViewById(R.id.register_user);
        // cancelButton = findViewById(R.id.cancel_user);
 
-        taskDaoO = Room.databaseBuilder(this, AppDatabase.class, "basanta.db")
-                .allowMainThreadQueries()
-                .build()
-                .taskDao();
+
+
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +71,7 @@ public class SignupActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             User user = new User(name.getText().toString(),lastName.getText().toString(),email.getText().toString(),password.getText().toString());
-                            taskDaoO.insert(user);
+                            repositoryUser.insertUser(user);
                             progressDialog.dismiss();
                             startActivity(new Intent(SignupActivity.this,UserActivity.class));
                         }

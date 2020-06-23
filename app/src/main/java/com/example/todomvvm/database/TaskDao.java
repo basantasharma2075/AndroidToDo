@@ -6,7 +6,6 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Transaction;
 import androidx.room.Update;
 
 import java.util.List;
@@ -14,8 +13,8 @@ import java.util.List;
 @Dao
 public interface TaskDao {
 
-    @Query("select * from task order by priority")
-    LiveData<List<TaskEntry>> loadAllTasks();
+    @Query("select * from task where taskUserId =:taskId")
+    LiveData<List<TaskEntry>> loadAllTasks(int taskId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTask(TaskEntry task);
@@ -26,8 +25,8 @@ public interface TaskDao {
     @Delete
     void deleteTask(TaskEntry task);
 
-    @Query("DELETE FROM task")
-    void deleteallTask();
+    @Query("DELETE FROM task where taskUserId =:user_id")
+    void deleteallTask(int user_id);
 
 
 
@@ -49,8 +48,10 @@ public interface TaskDao {
     @Delete
     void deleteU    (User user);
 
-    @Transaction
+    /*@Transaction
     @Query("Select * from task ,user where user.id = task.taskUserId order by priority")
-    public LiveData<List<TaskUser>> getUserTask();
+    public LiveData<List<TaskUser>> getUserTask();*/
+
+
 
 }

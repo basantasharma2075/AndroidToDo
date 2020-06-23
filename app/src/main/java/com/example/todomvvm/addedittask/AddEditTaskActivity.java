@@ -24,6 +24,8 @@ import java.util.Locale;
 
 public class AddEditTaskActivity extends AppCompatActivity {
 
+    private int user_id;
+
     // Extra for the task ID to be received in the intent
     public static final String EXTRA_TASK_ID = "extraTaskId";
     // Extra for the task ID to be received after rotation
@@ -44,6 +46,9 @@ public class AddEditTaskActivity extends AppCompatActivity {
     private final int REQ_CODE = 100;
     private final int REQ_CODE1 = 200;
 
+/*    private RepositoryUser repositoryUser;
+    private AppDatabase appDatabase;*/
+
 
     RadioGroup mRadioGroup;
     Button mButton;
@@ -56,6 +61,8 @@ public class AddEditTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_task);
+        user_id = Integer.parseInt( getIntent().getStringExtra( "userId" ) );
+
 
 
 
@@ -186,7 +193,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
         String title = editTextTaskTitle.getText().toString();
         int priority = getPriorityFromViews();
         Date date = new Date();
-        TaskEntry todo = new TaskEntry(description,title, priority, date);
+        TaskEntry todo = new TaskEntry(description,title, priority, date, user_id);
         if(mTaskId == DEFAULT_TASK_ID)
             viewModel.insertTask(todo);
         else{

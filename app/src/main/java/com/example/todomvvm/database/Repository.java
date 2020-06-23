@@ -12,8 +12,8 @@ public class Repository {
         dao = appDatabase.taskDao();
     }
 
-    public LiveData<List<TaskEntry>> getTasks(){
-       return dao.loadAllTasks();
+    public LiveData<List<TaskEntry>> getTasks(int user_id){
+       return dao.loadAllTasks(user_id);
     }
 
     public LiveData<TaskEntry> getTaskById(int taskId){
@@ -39,11 +39,11 @@ public class Repository {
     }
 
 
-    public void deleteAllNotes(){
+    public void deleteAllNotes(final int user_id){
         AppDatabase.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                dao.deleteallTask();
+                dao.deleteallTask(user_id);
             }
         });
     }

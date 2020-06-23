@@ -20,6 +20,7 @@ public class TaskEntry {
     private Date updatedAt;
 
 
+
     public int getTaskUserId() {
         return taskUserId;
     }
@@ -29,20 +30,23 @@ public class TaskEntry {
     }
 
     @Ignore
-    public TaskEntry(String description, String title, int priority, Date updatedAt) {
+    public TaskEntry(String description, String title, int priority, Date updatedAt, int taskUserId) {
+
         this.description = description;
         this.title = title;
         this.priority = priority;
         this.updatedAt = updatedAt;
+        this.taskUserId=taskUserId;
     }
 
     public TaskEntry(int id, String description, String title, int priority, Date updatedAt, int taskUserId) {
-        this.taskUserId=taskUserId;
+
         this.id = id;
         this.description = description;
         this.title = title;
         this.priority = priority;
         this.updatedAt = updatedAt;
+        this.taskUserId=taskUserId;
     }
 
     public int getId() {
